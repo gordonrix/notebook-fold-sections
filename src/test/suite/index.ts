@@ -38,7 +38,7 @@ function indicesOf(ranges: readonly vscode.NotebookRange[]): number[] {
 /** Wait until visibleRanges stops changing, so we never read mid-relayout. */
 async function settle(editor: vscode.NotebookEditor): Promise<void> {
     let previous = describeRanges(rangesOf(editor));
-    for (let attempt = 0; attempt < 40; attempt++) {
+    for (let attempt = 0; attempt < 80; attempt++) {
         await sleep(150);
         const current = describeRanges(rangesOf(editor));
         if (current === previous) {
@@ -46,6 +46,18 @@ async function settle(editor: vscode.NotebookEditor): Promise<void> {
         }
         previous = current;
     }
+}
+
+/**
+ * Wait for the notebook to render at all before trusting visibleRanges. A fixed
+ * sleep is not enough on a slow CI runner, and settle() alone would happily
+ * conclude that "no cells rendered" is a stable state.
+ */
+async function waitForRender(editor: vscode.NotebookEditor): Promise<void> {
+    for (let attempt = 0; attempt < 200 && rangesOf(editor).length === 0; attempt++) {
+        await sleep(150);
+    }
+    await settle(editor);
 }
 
 /**
@@ -121,7 +133,7 @@ async function openFixture(file: string): Promise<vscode.NotebookEditor> {
     const uri = vscode.Uri.file(path.resolve(__dirname, '../../../fixtures', file));
     const doc = await vscode.workspace.openNotebookDocument(uri);
     const editor = await vscode.window.showNotebookDocument(doc);
-    await sleep(2500); // let cells render before reading visibleRanges
+    await waitForRender(editor);
     return editor;
 }
 
