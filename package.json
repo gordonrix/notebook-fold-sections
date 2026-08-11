@@ -1,0 +1,103 @@
+{
+  "name": "notebook-fold-sections",
+  "displayName": "Notebook Fold Sections",
+  "description": "Fold or unfold all markdown header sections in a Jupyter notebook at once, with fold-to-level support.",
+  "version": "0.1.0",
+  "publisher": "gordonrix",
+  "license": "MIT",
+  "author": "Gordon Rix",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gordonrix/notebook-fold-sections.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gordonrix/notebook-fold-sections/issues"
+  },
+  "homepage": "https://github.com/gordonrix/notebook-fold-sections#readme",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Notebooks"
+  ],
+  "keywords": [
+    "notebook",
+    "jupyter",
+    "folding",
+    "markdown",
+    "outline"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "notebookFoldSections.foldAll",
+        "title": "Notebook: Fold All Markdown Sections"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel1",
+        "title": "Notebook: Fold Markdown Sections to Level 1"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel2",
+        "title": "Notebook: Fold Markdown Sections to Level 2"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel3",
+        "title": "Notebook: Fold Markdown Sections to Level 3"
+      },
+      {
+        "command": "notebookFoldSections.unfoldAll",
+        "title": "Notebook: Unfold All Markdown Sections"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "notebookFoldSections.foldAll",
+        "key": "ctrl+k ctrl+0",
+        "mac": "cmd+k cmd+0",
+        "when": "notebookEditorFocused && !inputFocus"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel1",
+        "key": "ctrl+k ctrl+1",
+        "mac": "cmd+k cmd+1",
+        "when": "notebookEditorFocused && !inputFocus"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel2",
+        "key": "ctrl+k ctrl+2",
+        "mac": "cmd+k cmd+2",
+        "when": "notebookEditorFocused && !inputFocus"
+      },
+      {
+        "command": "notebookFoldSections.foldLevel3",
+        "key": "ctrl+k ctrl+3",
+        "mac": "cmd+k cmd+3",
+        "when": "notebookEditorFocused && !inputFocus"
+      },
+      {
+        "command": "notebookFoldSections.unfoldAll",
+        "key": "ctrl+k ctrl+j",
+        "mac": "cmd+k cmd+j",
+        "when": "notebookEditorFocused && !inputFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^3.9.2",
+    "typescript": "^5.4.0"
+  }
+}
