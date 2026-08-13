@@ -1,5 +1,7 @@
 # Notebook Fold Sections
 
+[![CI](https://github.com/gordonrix/notebook-fold-sections/actions/workflows/ci.yml/badge.svg)](https://github.com/gordonrix/notebook-fold-sections/actions/workflows/ci.yml)
+
 Fold or unfold **every** markdown header section in a Jupyter notebook at once.
 
 VS Code can only collapse one notebook section at a time, via the chevron next to a
